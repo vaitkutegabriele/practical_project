@@ -1,3 +1,8 @@
+package connectionUtil;
+
+import entities.Client;
+import entities.Reservation;
+import entities.Service;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -6,7 +11,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import java.util.Properties;
 
-public class HibernateUtil {
+public class ConnectionUtil {
 
     private static SessionFactory sessionFactory;
 
@@ -26,7 +31,9 @@ public class HibernateUtil {
 
             configuration.setProperties(properties);
 
+            configuration.addAnnotatedClass(Service.class);
             configuration.addAnnotatedClass(Client.class);
+            configuration.addAnnotatedClass(Reservation.class);
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
@@ -38,6 +45,8 @@ public class HibernateUtil {
     }
 
     public static void shutdown() {
+
         getSessionFactory().close();
     }
+
 }

@@ -1,4 +1,5 @@
-import com.oracle.webservices.internal.api.databinding.DatabindingMode;
+package entities;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -6,24 +7,30 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Data
 
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long clientId;
 
-    private Long id;
     private String firstName;
+
     private String lastName;
-    private int telephoneNumber;
+
+    private String clientPassword;
+
     private String email;
 
+    private String phoneNumber;
+
     @ManyToOne
-    @JoinColumn(name = "service_id", nullable = false)
+    @JoinColumn(name = "serviceId")
     private Service service;
 
-
+    public Client(String firstName, String lastName, String clientPassword, String email, String phoneNumber) {
+    }
 }
